@@ -34,14 +34,71 @@
     height: 9vmin;
     border-radius: 1.7vmin;
     transition: all .3s;
+    color: #000;
 }
 
 .ConfirmStartScreenAdBlockNoAdText{
-    font-size: 1vw;
+    font-size: 1.3vw;
     margin-top: 25vmin;
     text-align: center;
 }
+.ConfirmStartScreenAdBlockNoAdTextMobile{
+    display: none;
+}
+
 
 .StartConfirmGameBtn:hover{
     border: 0.2vmin solid black;
+}
+
+@media (max-width: 600px) {
+
+    .ConfirmStartScreenContainer {
+    display: grid;
+    justify-items: center;
+    grid-template-rows: 130vmin 1vmin;
+    align-items: center;
+}
+
+    .StartConfirmGameBtn{
+                outline: 0;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        border: 0.8vmin solid #7ED957;
+        background-color: #7ED957;
+        padding-left: 9.3vw;
+        padding-right: 9.3vw;
+        font-size: 9.7vw;
+        height: 18vmin;
+        border-radius: 4.7vmin;
+        transition: all .3s;
+        width: fit-content;
+        color: #000;
+    }
+
+    .StartConfirmGameBtn:hover{
+        border: 0.8vmin solid black;
+    }
+
+    .ConfirmStartScreenAdBlock {
+    background-color: #C6C6C6;
+    height: 100.3vmin;
+    width: 66vw;
+    margin-top: 2vmin;
+    border-radius: 5vmin;
+}
+
+.ConfirmStartScreenAdBlockNoAdText {
+    display: none;
+}
+
+.ConfirmStartScreenAdBlockNoAdTextMobile {
+    display:block;
+    font-size: 7vw;
+    margin-top: 38vmin;
+    text-align: center;
+}
+
 }

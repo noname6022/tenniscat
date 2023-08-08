@@ -4,10 +4,24 @@
     height: 100vh;
 }
 
+#BallPoint{
+    position: fixed;
+    width: 7vw;
+    height: 12vmin;
+    top: 31vmin;
+    left: 46.5vw;
+}
+
+.BallImgStyles{
+    position: absolute; /* You might need to adjust this depending on your layout */
+    left: 50vw;
+    text-align: center;
+}
+
 .GameScreenContainer {
     display: grid;
     justify-items: center;
-    grid-template-rows: 27vmin 0vmin 54vmin;
+    grid-template-rows: 27vmin 0vmin 58vmin;
     align-items: center;
 }
 
@@ -54,4 +68,71 @@
 .CatRocket{
     position: fixed;
     width: 9vw;
+}
+
+.UserRocketStyles{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 11vw;
+    pointer-events: none;
+    z-index: 2;
+    transform: translate(-50%, -20%);
+}
+
+
+@media (max-width:600px) {
+    .GameScreenWrapper{
+        display: grid;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .GameScreenContainer {
+        display: grid;
+        justify-items: center;
+        grid-template-rows: 59vmin 0vmin 100vmin;
+        align-items: center;
+    }
+
+    .UserRocketStyles{
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 20vw;
+        pointer-events: none;
+        z-index: 2;
+        transform: translate(-50%, -70%);
+    }
+
+    .CatRocket{
+        position: fixed;
+        width: 25vw;
+    }
+
+    .StopGameBtn{
+        outline: 0;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        border: 0.8vmin solid red;
+        background-color: red;
+        padding-left: 9.3vw;
+        padding-right: 9.3vw;
+        font-size: 9.7vw;
+        height: 18vmin;
+        border-radius: 4.7vmin;
+        transition: all .3s;
+        width: fit-content;
+        color: #000;
+    }
+
+    .GameScreenTitle {
+        font-size: 10.8vw;
+        margin: 0;
+        padding: 0;
+    }
+
 }
