@@ -27,14 +27,29 @@ export const ConfirmStartScreen = () => {
       <section className='ConfirmStartScreenWrapper'>
         <div className='ConfirmStartScreenContainer'>
           <div className='ConfirmStartScreenAdBlock'>
-            <p className='ConfirmStartScreenAdBlockNoAdText'>
-              It could have been your ad, but you had<br/>
-              adblock turned on
-            </p>
-            <p className='ConfirmStartScreenAdBlockNoAdTextMobile'>
-              It could have been<br/>  your ad, but you had<br/>
-              adblock turned on
-            </p>
+            {musicAllowed ? (
+              <div className="ad-container">
+                <script
+                  async
+                  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9593544587794828"
+                  crossorigin="anonymous"
+                ></script>
+                <ins
+                  className="adsbygoogle"
+                  style={{ display: 'block' }}
+                  data-ad-client="ca-pub-9593544587794828"
+                  data-ad-slot="6395005739"
+                  data-ad-format="auto"
+                  data-full-width-responsive="true"
+                ></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+              </div>
+            ) : (
+              <p className='ConfirmStartScreenAdBlockNoAdText'>
+                It could have been your ad, but you had<br/>
+                adblock turned on
+              </p>
+            )}
           </div>
           <div>
             <button className='StartConfirmGameBtn' onClick={handleStartGame}>Start!</button>
