@@ -45,10 +45,15 @@ export const ConfirmStartScreen = () => {
                 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
               </div>
             ) : (
+              <>
               <p className='ConfirmStartScreenAdBlockNoAdText'>
                 It could have been your ad, but you had<br/>
                 adblock turned on
               </p>
+                          <p className='ConfirmStartScreenAdBlockNoAdTextMobile'>
+                          It could have been<br/>  your ad, but you had<br/>
+                          adblock turned on
+                        </p></>
             )}
           </div>
           <div>

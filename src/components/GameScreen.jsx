@@ -3,6 +3,7 @@ import '../index.css';
 import TennisCat from '../assets/Tenniscat.webp';
 import Rocket from '../assets/player-tennis-rocket.webp';
 import Song from '../assets/Tennis - Results - Wii Sports Music Extended.mp3';
+import CatRocketSound from '../assets/CatRocket.mp3'; // Make sure to import the correct file
 import TennisBallImg from '../assets/tennisball.webp';
 import CatTennisRocket from '../assets/rocketforcat.webp';
 import '../styles/GameScreenStyles.css';
@@ -10,12 +11,12 @@ import GameOverScreen from './GameOverScreen';
 
 const TennisBall = ({ scale, left }) => {
   const topPosition = window.innerWidth < 600
-  ? `${(203 - 23 * scale) / 2.7}vmin`
-  : `${(100 - 23 * scale) / 2.7}vmin`;
+    ? `${(203 - 23 * scale) / 2.7}vmin`
+    : `${(100 - 23 * scale) / 2.7}vmin`;
 
   const scaleTime = window.innerWidth < 600
-  ? 'left 1.05s ease'
-  : 'left 1.5s ease';
+    ? 'left 1.05s ease'
+    : 'left 1.5s ease';
 
   const ballStyle = {
     position: 'absolute',
@@ -40,6 +41,7 @@ const TennisBall = ({ scale, left }) => {
 };
 
 const GameScreen = () => {
+  
   const [seconds, setSeconds] = useState(0);
   const [ballScale, setBallScale] = useState(0.3);
   const [scalingDirection, setScalingDirection] = useState(1.4);
@@ -47,9 +49,17 @@ const GameScreen = () => {
   const [catRocketTop, setCatRocketTop] = useState(56);
   const [ballPosition, setBallPosition] = useState(50);
   const [gameOver, setGameOver] = useState(false);
+  const [playCatRocketSound, setPlayCatRocketSound] = useState(false);
   const cursorRef = useRef();
 
+  const handleAudioPlay = () => {
+    if (!playCatRocketSound) {
+      setPlayCatRocketSound(true);
+    }
+  };
+  
   useEffect(() => {
+    handleAudioPlay();
     const intervalId = setInterval(() => {
       setSeconds((prevSeconds) => prevSeconds + 1);
     }, 1000);
@@ -63,20 +73,20 @@ const GameScreen = () => {
         setScalingDirection((prevDirection) => -prevDirection);
       }
       setBallScale(newBallScale);
-  
-      // Make sure to check the conditions for mobile (window.innerWidth < 600) first
+
+      if (newBallScale >= 0.3 && newBallScale <= 1.4 && !gameOver) {
+        setPlayCatRocketSound(true);
+      } else {
+        setPlayCatRocketSound(false);
+      }
+
       if (window.innerWidth < 600) {
         if (scalingDirection === 1.4 && newBallScale >= 0.5 && newBallScale < 0.512) {
           setCatRocketLeft(Math.random() < 0.7 ? 15 : 58);
-  
-          // Calculate new ball position for both right and left movement
-          const maxRightPosition = 68; // Maximum right position
-          const maxLeftPosition = 20; // Maximum left position
+          const maxRightPosition = 80;
+          const maxLeftPosition = 20; // Adjust this value to move the ball less to the left
           const ballMovementRange = maxRightPosition - maxLeftPosition;
-  
-          // Calculate a random position within the ball's movement range
           const randomPosition = Math.random() * ballMovementRange + maxLeftPosition;
-  
           setBallPosition(randomPosition);
           setCatRocketTop(94);
         } else if (scalingDirection === -1.4 && newBallScale <= 0.5 && newBallScale > 0.388) {
@@ -86,7 +96,6 @@ const GameScreen = () => {
           setBallPosition(50);
         }
       } else {
-        // Continue with other conditions when window.innerWidth >= 600
         if (scalingDirection === 1.4 && newBallScale >= 0.5 && newBallScale < 0.512) {
           setCatRocketLeft(Math.random() < 0.7 ? 38 : 53);
           setBallPosition(Math.random() * 50 + 30);
@@ -94,42 +103,34 @@ const GameScreen = () => {
         } else if (scalingDirection === -1.4 && newBallScale <= 1.38 && newBallScale > 0.388) {
           setBallPosition(50);
         }
-  
         if (scalingDirection === -1.4 && newBallScale <= 0.5 && newBallScale > 0.388) {
           setCatRocketTop(33);
           setCatRocketLeft(45.5);
         }
       }
-      }, 20);
-      return () => clearInterval(intervalId);
-    }, [ballScale, scalingDirection]);
+    }, 20);
 
-  
-  
+    return () => clearInterval(intervalId);
+  }, [ballScale, scalingDirection, gameOver]);
 
   useEffect(() => {
     let animationFrameId;
 
     const checkCollision = () => {
-      // Check collision only if the ball's scale is above the threshold
-      const collisionThreshold = 1.0;
-
       if (ballScale >= 1.4 && scalingDirection === -1.4) {
         const ballElement = document.getElementById('BallPoint');
         if (ballElement) {
           const ballRect = ballElement.getBoundingClientRect();
           const cursorRect = cursorRef.current.getBoundingClientRect();
-
           const isNotCovered =
             cursorRect.left >= ballRect.right ||
             cursorRect.right <= ballRect.left ||
             cursorRect.top >= ballRect.bottom ||
             cursorRect.bottom <= ballRect.top;
 
-          // Set gameOver to true if the ball is not covered by the cursor
           if (isNotCovered) {
             setGameOver(true);
-            return; // Stop the animation loop
+            return;
           }
         }
       }
@@ -146,24 +147,22 @@ const GameScreen = () => {
 
   useEffect(() => {
     const moveCursor = (event) => {
-      // Don't update the cursor if the game is over
       if (gameOver) return;
-  
+
       const x = event.clientX || event.touches[0].clientX;
       const y = event.clientY || event.touches[0].clientY;
       cursorRef.current.style.left = `${x}px`;
       cursorRef.current.style.top = `${y}px`;
     };
-  
+
     document.addEventListener('mousemove', moveCursor);
     document.addEventListener('touchmove', moveCursor);
-  
+
     return () => {
       document.removeEventListener('mousemove', moveCursor);
       document.removeEventListener('touchmove', moveCursor);
     };
   }, [gameOver]);
-  
 
   const formatTime = (time) => {
     const hours = Math.floor(time / 3600);
@@ -219,6 +218,7 @@ const GameScreen = () => {
           />
         </div>
         <audio src={Song} autoPlay loop />
+        {playCatRocketSound && <audio src={CatRocketSound} autoPlay />}
       </section>
     );
   };
@@ -231,3 +231,4 @@ const GameScreen = () => {
 };
 
 export default GameScreen;
+
