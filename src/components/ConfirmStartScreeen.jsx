@@ -47,12 +47,18 @@ export const ConfirmStartScreen = () => {
             ) : (
               <>
               <p className='ConfirmStartScreenAdBlockNoAdText'>
-                It could have been your ad, but you had<br/>
-                adblock turned on
+              Guys, if you want to support me<br/>
+                financially, you can do it<br/>
+                 by clicking on <a href='https://ko-fi.com/yopblip' target='_blank'>this link.</a>
+                 
               </p>
                           <p className='ConfirmStartScreenAdBlockNoAdTextMobile'>
-                          It could have been<br/>  your ad, but you had<br/>
-                          adblock turned on
+                          Guys, if you want to<br/> 
+                          support me financially,<br/>
+                           you can do it  by <br/>
+                           clicking on <a href='https://ko-fi.com/yopblip' target='_blank'>this link.</a>
+                
+               
                         </p></>
             )}
           </div>

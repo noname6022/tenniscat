@@ -15,8 +15,8 @@ const TennisBall = ({ scale, left }) => {
     : `${(100 - 23 * scale) / 2.7}vmin`;
 
   const scaleTime = window.innerWidth < 600
-    ? 'left 1.05s ease'
-    : 'left 1.5s ease';
+    ? 'left 0.8s ease'
+    : 'left 0.8s ease';
 
   const ballStyle = {
     position: 'absolute',

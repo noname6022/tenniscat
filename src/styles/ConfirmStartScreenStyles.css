@@ -42,6 +42,13 @@
     margin-top: 25vmin;
     text-align: center;
 }
+
+.ConfirmStartScreenAdBlockNoAdText a{
+    font-size: 1.5vw;
+    margin-top: 25vmin;
+    text-align: center;
+}
+
 .ConfirmStartScreenAdBlockNoAdTextMobile{
     display: none;
 }
@@ -96,9 +103,12 @@
 
 .ConfirmStartScreenAdBlockNoAdTextMobile {
     display:block;
-    font-size: 7vw;
+    font-size: 6vw;
     margin-top: 38vmin;
     text-align: center;
+}
+.ConfirmStartScreenAdBlockNoAdTextMobile a{
+    font-size: 6.5vw;
 }
 
 }
