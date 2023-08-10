@@ -16,7 +16,7 @@ const TennisBall = ({ scale, left }) => {
 
   const scaleTime = window.innerWidth < 600
     ? 'left 0.8s ease'
-    : 'left 0.8s ease';
+    : 'left 1s ease';
 
   const ballStyle = {
     position: 'absolute',
@@ -57,9 +57,11 @@ const GameScreen = () => {
       setPlayCatRocketSound(true);
     }
   };
-  
+
+ handleAudioPlay(); 
+ 
   useEffect(() => {
-    handleAudioPlay();
+    
     const intervalId = setInterval(() => {
       setSeconds((prevSeconds) => prevSeconds + 1);
     }, 1000);
