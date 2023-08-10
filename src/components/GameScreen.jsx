@@ -57,9 +57,11 @@ const GameScreen = () => {
       setPlayCatRocketSound(true);
     }
   };
+  useEffect(() => {
+    handleAudioPlay(); 
+  }, []);
 
- handleAudioPlay(); 
- 
+
   useEffect(() => {
     
     const intervalId = setInterval(() => {
